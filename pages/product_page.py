@@ -25,3 +25,9 @@ class ProductPage(BasePage):
 
     def should_be_right_basket_price(self):
         assert self.find_merch_price() == self.find_basket_price(), "Basket price is not equals merch price!"
+
+    def should_be_no_success_message(self):
+        assert self.is_element_not_present(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is presented, but should not be"
+
+    def success_message_should_disappear(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is not disappeared, but should be"

@@ -24,6 +24,10 @@ class BasePage:
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         link.click()
 
+    def go_to_basket(self):
+        link = self.browser.find_element(*BasePageLocators.VIEW_BASKET)
+        link.click()
+
     def is_disappeared(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout, 1, TimeoutException).until_not(EC.presence_of_element_located((how, what)))
@@ -49,7 +53,7 @@ class BasePage:
         self.browser.get(self.url)
 
     def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not present"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert

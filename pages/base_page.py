@@ -13,6 +13,10 @@ class BasePage:
         self.url = url
         self.browser.implicitly_wait(timeout)
 
+    def click_button(self, how, what):
+        button = self.browser.find_element(how, what)
+        button.click()
+
     def find_text(self, how, what):
         try:
             text = self.browser.find_element(how, what).text
@@ -27,6 +31,10 @@ class BasePage:
     def go_to_basket(self):
         link = self.browser.find_element(*BasePageLocators.VIEW_BASKET)
         link.click()
+
+    def insert_text(self, how, what, text):
+        input_field = self.browser.find_element(how, what)
+        input_field.send_keys(text)
 
     def is_disappeared(self, how, what, timeout=4):
         try:
@@ -51,6 +59,9 @@ class BasePage:
 
     def open(self):
         self.browser.get(self.url)
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented,probably unauthorised user"
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not present"
